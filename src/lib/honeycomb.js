@@ -16,8 +16,6 @@ export function sendStartup() {
 }
 
 export function sendSearch(searchInput) {
-  console.log({ searchInput })
-
   const searchEvent = hny.newEvent();
   searchEvent.add({
     event_type: 'search',

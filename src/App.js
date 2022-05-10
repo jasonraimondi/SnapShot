@@ -6,7 +6,7 @@ import Item from "./components/Item";
 import Search from "./components/Search";
 import NotFound from "./components/NotFound";
 import PhotoContextProvider from "./context/PhotoContext";
-import { hny, sendSearch, sendStartup } from './lib/honeycomb';
+import { sendStartup } from './lib/honeycomb';
 
 // Let's send an event each time the app starts up
 sendStartup();
@@ -18,7 +18,6 @@ class App extends Component {
     e.preventDefault();
     e.currentTarget.reset();
     let url = `/search/${searchInput}`;
-    sendSearch(searchInput);
     history.push(url);
   };
 
