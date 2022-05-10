@@ -6,23 +6,10 @@ import Item from "./components/Item";
 import Search from "./components/Search";
 import NotFound from "./components/NotFound";
 import PhotoContextProvider from "./context/PhotoContext";
-
-// Libhoney is the Honeycomb SDK for sending telemetry Events to Honeycomb's API
-// Docs for Libhoney live at https://docs.honeycomb.io/getting-data-in/javascript/libhoney/
-// Here's our Honeycomb SDK configuration
-import Libhoney from "libhoney"; 
-
-let hny = new Libhoney({
-  writeKey: "rcNoy3kfxbVTkvzAzv8glC",
-  dataset: "snapshop-app-events"
-});
+import { hny, sendSearch, sendStartup } from './lib/honeycomb';
 
 // Let's send an event each time the app starts up
-let ev = hny.newEvent();
-ev.addField("event_type", "startup");
-// Uncomment this line to add a user agent field to your Events
-// ev.addField("user_agent", typeof window && window.navigator && window.navigator.userAgent );
-ev.send();
+sendStartup();
 
 // And here's our actual app code:
 class App extends Component {
@@ -31,12 +18,7 @@ class App extends Component {
     e.preventDefault();
     e.currentTarget.reset();
     let url = `/search/${searchInput}`;
-    const searchEvent = hny.newEvent();
-    searchEvent.add({
-      event_type: "search",
-      search_term: searchInput,
-    })
-    searchEvent.send();
+    sendSearch(searchInput);
     history.push(url);
   };
 
@@ -59,7 +41,6 @@ class App extends Component {
                 path="/"
                 render={() => <Redirect to="/mountain" />}
               />
-
               <Route
                 path="/mountain"
                 render={() => <Item searchTerm="mountain" />}
