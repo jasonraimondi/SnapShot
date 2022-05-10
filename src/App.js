@@ -12,7 +12,7 @@ import NotFound from "./components/NotFound";
 import Libhoney from "libhoney"; 
 
 let hny = new Libhoney({
-  writeKey: "YOUR_API_KEY",
+  writeKey: "rcNoy3kfxbVTkvzAzv8glC",
   dataset: "snapshop-app-events"
 });
 
