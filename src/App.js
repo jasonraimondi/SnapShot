@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import PhotoContextProvider from "./context/PhotoContext";
+
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import Header from "./components/Header";
 import Item from "./components/Item";
 import Search from "./components/Search";
 import NotFound from "./components/NotFound";
+import PhotoContextProvider from "./context/PhotoContext";
 
 // Libhoney is the Honeycomb SDK for sending telemetry Events to Honeycomb's API
 // Docs for Libhoney live at https://docs.honeycomb.io/getting-data-in/javascript/libhoney/
@@ -30,6 +31,12 @@ class App extends Component {
     e.preventDefault();
     e.currentTarget.reset();
     let url = `/search/${searchInput}`;
+    const searchEvent = hny.newEvent();
+    searchEvent.add({
+      event_type: "search",
+      search_term: searchInput,
+    })
+    searchEvent.send();
     history.push(url);
   };
 
