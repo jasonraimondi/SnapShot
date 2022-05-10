@@ -7,8 +7,9 @@ import { sendSearch } from '../lib/honeycomb';
 const Container = ({ searchTerm }) => {
   const { images, loading, runSearch } = useContext(PhotoContext);
   useEffect(() => {
-    runSearch(searchTerm);
-    sendSearch(searchTerm);
+    runSearch(searchTerm).then(({ duration }) => {
+      sendSearch(searchTerm, duration)
+    });
     // eslint-disable-next-line
   }, [searchTerm]);
 

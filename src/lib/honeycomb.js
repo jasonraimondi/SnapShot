@@ -15,11 +15,12 @@ export function sendStartup() {
   ev.send();
 }
 
-export function sendSearch(searchInput) {
+export function sendSearch(searchInput, duration = 0) {
   const searchEvent = hny.newEvent();
   searchEvent.add({
     event_type: 'search',
     search_term: searchInput,
   });
+  if (duration > 0) searchEvent.addField("duration_ms", duration);
   searchEvent.send();
 }
